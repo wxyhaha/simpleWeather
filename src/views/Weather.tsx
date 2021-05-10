@@ -4,6 +4,7 @@ import last from '../images/leftArrow.png'
 import next from '../images/rightArrow.png'
 import useWeatherDates from '../useWeatherDates';
 import rain from '../images/rain.png'
+import {useEffect, useState} from 'react';
 
 const Div=styled.div`
   width: 100vw;
@@ -24,12 +25,8 @@ const Button=styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  >.last{
-    margin-right: 72px;
-  }
-  >.next{
-    margin-left: 72px;
-  }
+  border: 1px solid red;
+  margin: 0 108px;
   
   >img{
     width: 48px;
@@ -44,6 +41,7 @@ const Wrapper=styled.div`
   >.city{
     font-size:36px;
     margin-bottom: 36px;
+    border: 1px solid red;
   }
 
   >img{
@@ -56,13 +54,31 @@ const Wrapper=styled.div`
   >div{
     margin: 12px 0;
     display: flex;
-    width: 100%;
+    width: 80%;
     justify-content: space-between;
   }
 `
 
 function Weather() {
   const {weatherDates,findWeatherDate}=useWeatherDates()
+  const [selectedCity,setSelectedCity]=useState(1)
+  const x=findWeatherDate(selectedCity)
+  const y=x.weatherIcon.toString()
+  const lastCity=()=>{
+    if(selectedCity===1){
+      setSelectedCity(selectedCity=>selectedCity+3)
+    }else {
+      setSelectedCity(selectedCity=>selectedCity-1)
+    }
+  }
+  const nextCity=()=>{
+    if(selectedCity===4){
+      setSelectedCity(selectedCity=>selectedCity-3)
+    }else {
+      setSelectedCity(selectedCity=>selectedCity+1)
+    }
+  }
+
   return (
     <Div style={{
       backgroundImage:`url(${background})`,
@@ -71,20 +87,22 @@ function Weather() {
       backgroundRepeat: 'no-repeat'
     }}>
       <div>
-        <Button>
+        <Button onClick={lastCity}>
           <img className='last' src={last} alt='last'/>
         </Button>
         <Wrapper>
-          <span className='city'>Sydney</span>
+          <span className='city'>
+            {x.city}
+          </span>
           <img src={rain} alt="rain"/>
-          <span className='now'>19°C</span>
+          <span className='now'>{x.temperature}°C</span>
           <div>
-            <span className='low'>16°C</span>
-            <span className='high'>22°C</span>
+            <span className='low'>{x.lowTemperature}°C</span>
+            <span className='high'>{x.highTemperature}°C</span>
           </div>
-          <span>Rain</span>
+          <span>{x.weatherName}</span>
         </Wrapper>
-        <Button>
+        <Button onClick={nextCity}>
           <img className='next' src={next} alt="next"/>
         </Button>
       </div>
