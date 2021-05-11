@@ -4,7 +4,7 @@ import last from '../images/leftArrow.png'
 import next from '../images/rightArrow.png'
 import useWeatherDates from '../useWeatherDates';
 import rain from '../images/rain.png'
-import {useEffect, useState} from 'react';
+import { useState} from 'react';
 
 const Div=styled.div`
   width: 100vw;
@@ -25,7 +25,6 @@ const Button=styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid red;
   margin: 0 108px;
   
   >img{
@@ -41,7 +40,6 @@ const Wrapper=styled.div`
   >.city{
     font-size:36px;
     margin-bottom: 36px;
-    border: 1px solid red;
   }
 
   >img{
@@ -63,7 +61,7 @@ function Weather() {
   const {weatherDates,findWeatherDate}=useWeatherDates()
   const [selectedCity,setSelectedCity]=useState(1)
   const x=findWeatherDate(selectedCity)
-  const y=x.weatherIcon.toString()
+
   const lastCity=()=>{
     if(selectedCity===1){
       setSelectedCity(selectedCity=>selectedCity+3)
@@ -94,7 +92,7 @@ function Weather() {
           <span className='city'>
             {x.city}
           </span>
-          <img src={rain} alt="rain"/>
+          <img src={rain} alt="icon"/>
           <span className='now'>{x.temperature}°C</span>
           <div>
             <span className='low'>{x.lowTemperature}°C</span>
