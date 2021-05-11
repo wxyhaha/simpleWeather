@@ -9,6 +9,9 @@ const Div=styled.div`
   `
 const Button=styled.button`
     background: #f76515;
+  @media (max-width: 500px){
+    font-size: 32px;
+  }
     font-size: 48px;
     color: white;
     padding: 8px;

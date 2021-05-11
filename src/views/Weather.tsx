@@ -25,8 +25,10 @@ const Button=styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 108px;
-  
+  @media (max-width: 500px){
+    margin: 0 48px;
+  }
+  margin: 0 96px;
   >img{
     width: 48px;
     height: 48px;
